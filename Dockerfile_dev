@@ -1,0 +1,8 @@
+FROM golang:latest
+ENV GOPATH /go
+ENV PATH $PATH:$GOPATH/bin
+RUN mkdir -p /go/src/github.com/riita10069/echo_base_code
+COPY . /go/src/github.com/riita10069/echo_base_code
+WORKDIR /go/src/github.com/riita10069/echo_base_code
+ENV GO111MODULE=on
+CMD ["go", "run", "main.go"]
