@@ -14,7 +14,7 @@ cloud_sql_proxy
 deployment.yml
 !point_server/deployment.yml
 venv/
-
+db_data/
 secrets
 
 cli/bin/*

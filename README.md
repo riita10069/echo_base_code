@@ -76,10 +76,13 @@ http://gorm.io/ja_JP/docs/
 go get github.com/rubenv/sql-migrate/...
 ```
 
-db/dbconfig.yml
-が設定ファイル
 デフォルトと違うので注意
+直下のdbconfigを移動させたら、
+-config db/conf.yml
 
+とかする。
+
+homeのyaml多すぎでもあるので、移動させるかも。
 ### command
 
 ```
@@ -97,12 +100,12 @@ $ sql-migrate new create_users
 
 ```
 # マイグレーションの実行
-$ sql-migrate up -config db/dbconfig.yml
+$ sql-migrate up 
 ```
 
 ```
 # マイグレーションをdryrunで実行。実行予定のsqlが出力される
-$ sql-migrate up -dryrun -config db/dbconfig.yml
+$ sql-migrate up -dryrun 
 ```
 
 ```

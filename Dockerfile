@@ -6,10 +6,9 @@ ENV PATH $PATH:$GOPATH/bin
 RUN apk update && \
   apk add --no-cache git && \
 
-RUN go mod tidy
-
 ADD . /go/src/github.com/riita10069/echo_base_code
 WORKDIR /go/src/github.com/riita10069/echo_base_code
+EXPOSE 8000
 
 RUN go build -o main main.go
 

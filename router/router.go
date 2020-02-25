@@ -23,7 +23,11 @@ func New() *echo.Echo {
 	e.Validator = NewValidator()
 
 	// routing
-	// need not login page
+  e.GET("/healthcheck", func(c echo.Context) error {
+    return c.String(200, "OK")
+  })
+
+  // need not login page
 	e.POST("/login", handler.Login)
 	e.POST("/create", handler.Create)
 

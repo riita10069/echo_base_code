@@ -12,15 +12,14 @@ func New() *gorm.DB {
 
 	DBMS     := "mysql"
 	USER     := "root"
-	PASS     := "####"
-	PROTOCOL := "tcp(##.###.##.###:3306)"
-	DBNAME   := "##"
+	PASS     := "password"
+	PROTOCOL := "tcp(docker.for.mac.host.internal:3306)"
+	DBNAME   := "test"
 
 	CONNECT := USER+":"+PASS+"@"+PROTOCOL+"/"+DBNAME
-	// CONNECT := ${DB_USER}:${DB_PASSWORD}@tcp(${DB_ADDRESS})/${DB_SCHEMA}?charset=utf8mb4&collation=utf8mb4_general_ci&parseTime=true
-	db,err := gorm.Open(DBMS, CONNECT)
+	db, err := gorm.Open(DBMS, CONNECT)
 	if err != nil {
-		panic("failed to connect database")
+		panic("failed to connect database!!")
 	}
 
 	db.LogMode(true)
