@@ -67,6 +67,74 @@ url := e.Group(url) とすることで、指定したURL下をグループ化す
 http://gorm.io/ja_JP/docs/
 がとてもわかりやすい。
 
+```
+package main
+
+import (
+		"fmt"
+		"github.com/jinzhu/gorm"
+    _ "github.com/jinzhu/gorm/dialects/mysql"
+)
+
+type Product struct {
+
+		Id  int64 `json:"id" gorm:"column:id;primary_key"`
+		Code  string `json:"code" gorm:"column:code" sql:"not null;type:varchar(200)"
+		Price int8 `json:"price" gorm:"column:price" sql:"not null;type:int"
+		CreatedAt  time.Tim `json:"created_at" gorm:"column:created_at" sql:"not null;type:datetime"`
+		UpdatedAt  time.Time `json:"updated_at" gorm:"column:updated_at" sql:"not null;type:datetime"
+}
+
+func main() {
+
+		var product Product
+		var products [] Product
+
+		// Connect
+		db, err := gorm.Open("mysql", "root:secret@/go_test?charset=utf8&parseTime=True&loc=Local")
+		if err != nil {
+				panic("failed to connect database")
+		}
+		
+		// Migrate(絶対に使わない。)
+		db.AutoMigrate(&Product{})
+
+
+		// Create
+		db.Create(&Product{Code: "test_code", Price: 1000})
+
+		// Read
+		db.First(&product, 1)
+		//fmt.Println(product)
+
+		db.First(&product, "code = ?", "test_code")
+		//fmt.Println(product)
+
+		db.Order("price desc, code").Find(&products)
+		//fmt.Println(products)
+
+		db.Select("code,price").Find(&products)
+		//fmt.Println(products)
+
+		// Update
+		db.Model(&product).Update("Price", 5000)
+		//fmt.Println(product)
+
+		for _, v := range products {
+				fmt.Print(v.Code)
+				fmt.Print(v.Price)
+		}
+
+		//Delete
+		db.Delete(&product)
+
+}
+```
+
+gormのAutoMigrate機能は使わないでください。
+まだ、開発途中で十分じゃないからです。というか、カラムが減らせないんですよ。
+普通に致命傷なので、sql-migrateを使います。
+以下に記述します。
 
 ## migration
 

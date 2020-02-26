@@ -10,6 +10,7 @@ services:
       - 8000:8000
     volumes:
       - .:/go/src/github.com/riita10069/echo_base_architecture
+    command: go run main.go
     environment:
       DB_USER: root
       DB_PASSWORD: password
