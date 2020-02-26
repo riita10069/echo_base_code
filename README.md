@@ -133,8 +133,35 @@ DROP TABLE IF EXISTS users;
 マイグレーション初回実行時に`gorp_migrations`というテーブルが自動で作成される。
 このテーブルには実行したマイグレーションファイル名をインサートして実行済みか否かを管理してる。
 
+## docker-compose によるローカル開発環境
+```
+docker-compose build
+docker-compose run --rm server sql-migrate up
+docker-compose up
+docker-compose down -v
+```
 
+### migrationファイルの作成
 
+docker-compose run --rm sql-migrate new create_users
+って感じで、内部に作ってもいいですけど、どうせマウントしてるので、
+ローカルのgoにやらせる方が楽だとは思いますけどね。
+
+## pre-commit
+
+```
+brew install pre-commit
+pre-commit install
+```
+
+### データインポート
+
+```
+./cli/dev_util/run.sh db_import
+```
+
+にしたい。けど、まだできていないから、テキトーにcreate分発行しておいてください。
+dumpとかすらありません。そのうち作ります。
 ## ディレクトリ構成(Constitution of Directory)
 ！！新プロジェクトではimport 文のpathを修正するのを忘れないように
 

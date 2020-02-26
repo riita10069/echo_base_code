@@ -6,5 +6,5 @@ import (
 
 func main() {
 	r := router.New()
-	r.Logger.Fatal(r.Start("127.0.0.1:8000"))
+  r.Logger.Fatal(r.Start(":8000"))
 }

@@ -13,7 +13,7 @@ func New() *gorm.DB {
 	DBMS     := "mysql"
 	USER     := "root"
 	PASS     := "password"
-	PROTOCOL := "tcp(docker.for.mac.host.internal:3306)"
+	PROTOCOL := "tcp(mysql:3306)"
 	DBNAME   := "test"
 
 	CONNECT := USER+":"+PASS+"@"+PROTOCOL+"/"+DBNAME
