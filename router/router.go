@@ -32,12 +32,21 @@ func New() *echo.Echo {
 	e.POST("/create", handler.Create)
 
 	// have to login page
-	//api := e.Group("/api")
-	//api.Use(middleware.JWTWithConfig(handler.Config))
+	g := e.Group("/api")
+	g.Use(middleware.JWTWithConfig(handler.Config))
 	//api.GET("/bcp", handler.GetBcp)
 	//api.POST("/gcp", handler.AddBcp)
 	//api.DELETE("/bcp/:id", handler.DeleteBcp)
 	//api.PUT("/gcp/:id/completed", handler.UpdateBcp)
+
+  manual := handler.NewManual()
+  g.GET("/news", manual.List)
+  g.GET("/news/:id", manual.Get)
+  g.POST("/news", manual.Create)
+  g.PUT("/news/:id", manual.Update)
+  g.DELETE("/news/:id", manual.Destroy)
+  g.PUT("/news/:id/main_image", manual.UploadMainImage)
+
 
 	return e
 }

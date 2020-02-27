@@ -24,7 +24,6 @@ var Config = middleware.JWTConfig{
 }
 
 func Create(c echo.Context) error {
-  print("called create handler")
 	user := new(entity.User)
 	if err := c.Bind(user); err != nil {
 		return err
