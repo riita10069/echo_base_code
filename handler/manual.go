@@ -30,8 +30,8 @@ func NewManual() *Manual {
 func (h *Manual) List(c echo.Context) error {
   // form, err := form.NewPaging(c)
   manuals, err := usecase.NewManual().GetList()
-  if err := nil {
-
+  if err != nil {
+    return err
   }
   return c.JSON(http.StatusOK, response.NewManuals(manuals))
 }
