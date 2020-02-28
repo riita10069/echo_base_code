@@ -40,12 +40,12 @@ func New() *echo.Echo {
 	//api.PUT("/gcp/:id/completed", handler.UpdateBcp)
 
   manual := handler.NewManual()
-  g.GET("/news", manual.List)
-  g.GET("/news/:id", manual.Get)
-  g.POST("/news", manual.Create)
-  g.PUT("/news/:id", manual.Update)
-  g.DELETE("/news/:id", manual.Destroy)
-  g.PUT("/news/:id/main_image", manual.UploadMainImage)
+  g.GET("/manual", manual.List)
+  g.GET("/manual/:id", manual.Get)
+  g.POST("/manual", manual.Create)
+  g.PUT("/manual/:id", manual.Update)
+  g.DELETE("/manual/:id", manual.Destroy)
+  g.PUT("/manual/:id/main_image", manual.UploadMainImage)
 
 
 	return e
