@@ -18,7 +18,6 @@ type (
   }
 
   Manual struct {
-
   }
 )
 
@@ -59,14 +58,38 @@ func (h *Manual) Create(c echo.Context) error {
 }
 
 func (h *Manual) Update(c echo.Context) error{
-  return c.JSON(http.StatusOK, Manual{})
+  id, err := form.GetID(c)
+  if err != nil {
+    return err
+  }
+
+  form, err := form.NewManual(c)
+  if err != nil {
+    return err
+  }
+
+  manual, err := usecase.NewManual().Update(id, form)
+  if err != nil {
+    return err
+  }
+
+  return c.JSON(http.StatusOK, response.NewManual(manual))
 }
 
 func (h *Manual) Destroy(c echo.Context) error{
-  return c.JSON(http.StatusOK, Manual{})
+  id, err := form.GetID(c)
+  if err != nil {
+    return err
+  }
+
+  err = usecase.NewManual().Delete(id)
+  if err != nil {
+    return err
+  }
+  return c.JSON(http.StatusOK, "destroied the manual")
 }
 
 func (h *Manual) UploadMainImage(c echo.Context) error{
-  return c.JSON(http.StatusOK, Manual{})
+  return c.JSON(http.StatusOK, "We're sorry, but we haven't implemented a function to post images in the manual yet.")
 }
 

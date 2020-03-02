@@ -16,4 +16,4 @@ type (
   Manuals []Manual
 )
 
-// entity constructorは持たせていない。usecaseで作成。あってたほうがいいのか？？
+// entity constructorは持たせていない。usecaseで作成。

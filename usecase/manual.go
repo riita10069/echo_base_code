@@ -11,6 +11,8 @@ type (
     GetList() (*entity.Manuals, error)
     Create(form *form.Manual) (*entity.Manual, error)
     GetByID(id int64) (*entity.Manual, error)
+    Update(id int64, form *form.Manual) (*entity.Manual, error)
+    Delete(id int64) error
   }
 
   Manual struct {
@@ -41,16 +43,42 @@ func (usecase *Manual)GetByID(id int64) (*entity.Manual, error) {
 }
 
 func (usecase *Manual)Create(form *form.Manual)(*entity.Manual, error){
-  manual := &entity.Manual{
+  entity := &entity.Manual{
     ID:          form.ID,
     Title:       form.Title,
     Description: form.Description,
     TagID:       form.TagID,
   }
 
-  manual, err := usecase.ManualRepo.Create(manual)
+  manual, err := usecase.ManualRepo.Create(entity)
   if err != nil {
     return nil, err
   }
   return manual, nil
+}
+
+func (usecase *Manual)Update(id int64, form *form.Manual) (*entity.Manual, error) {
+  entity, err := usecase.ManualRepo.ByID(&entity.Manual{}, id)
+  if err != nil {
+    return nil, err
+  }
+  entity.ID = form.ID
+  entity.Title = form.Title
+  entity.Description = form.Description
+  entity.TagID = form.TagID
+
+  manual, err := usecase.ManualRepo.Update(entity)
+  if err != nil {
+    return nil, err
+  }
+  return manual, nil
+}
+
+func (usecase *Manual)Delete(id int64) error {
+  entity, err := usecase.ManualRepo.ByID(&entity.Manual{}, id)
+  if err != nil {
+    return err
+  }
+  err = usecase.ManualRepo.Delete(entity)
+  return err
 }

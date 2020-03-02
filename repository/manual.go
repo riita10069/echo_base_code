@@ -10,6 +10,8 @@ type (
     All(entity *entity.Manuals) (*entity.Manuals, error)
     ByID(entity *entity.Manual, id int64) (*entity.Manual, error)
     Create(entity *entity.Manual) (*entity.Manual, error)
+    Update(e *entity.Manual) (*entity.Manual, error)
+    Delete(e *entity.Manual) error
   }
   Manual struct {}
 )
@@ -40,4 +42,20 @@ func (repo *Manual)Create(entity *entity.Manual) (*entity.Manual, error) {
     return nil, err
   }
   return entity, nil
+}
+
+func (repo *Manual)Update(entity *entity.Manual) (*entity.Manual, error) {
+  err := db.New().Save(entity).Error
+  if err != nil {
+    return nil, err
+  }
+  return entity, nil
+}
+
+func (repo *Manual)Delete(entity *entity.Manual) error {
+  err := db.New().Delete(entity).Error
+  if err != nil {
+    return err
+  }
+  return nil
 }
